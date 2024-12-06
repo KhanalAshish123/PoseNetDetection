@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Integration Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            background-color: #333;
+            padding: 0.5rem;
+        }
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content {
+            padding: 20px;
+        }
+        #menu, #about, #analytics {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" onclick="showTab('menu')">Menu</a>
+        <a href="#" onclick="showTab('about')">About</a>
+        <a href="#" onclick="showTab('analytics')">Analytics</a>
+    </div>
+
+    <div class="content">
+        <div id="menu">
+            <h1>Welcome to the Menu</h1>
+            <p>Explore the functionalities of this app!</p>
+        </div>
+
+        <div id="about">
+            <h1>About</h1>
+            <p>This is a simple app for integrating machine learning models into a frontend interface.</p>
+        </div>
+
+        <div id="analytics">
+            <h1>Analytics</h1>
+            <p>Click the button below to run the machine learning model.</p>
+            <button onclick="executeMLCode()">Run ML Code</button>
+        </div>
+    </div>
+
+    <script>
+        // Show the default tab
+        showTab('menu');
+
+        function showTab(tabId) {
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('about').style.display = 'none';
+            document.getElementById('analytics').style.display = 'none';
+
+            document.getElementById(tabId).style.display = 'block';
+        }
+
+        function executeMLCode() {
+            fetch('http://127.0.0.1:5000/run-ml') // Adjust the API URL as needed
+                .then(response => response.json())
+                .then(data => {
+                    alert('ML Code executed successfully!');
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to execute ML code.');
+                });
+        }
+    </script>
+</body>
+</html>
